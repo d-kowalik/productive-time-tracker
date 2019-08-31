@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import Timer from './Timer'
+import DynamicCircle from './DynamicCircle'
 
 import './App.css'
 
@@ -38,7 +39,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        <Timer time={time} />
+        <DynamicCircle today={today}>
+          <Timer time={time} />
+        </DynamicCircle>
       </div>
     )
   }
