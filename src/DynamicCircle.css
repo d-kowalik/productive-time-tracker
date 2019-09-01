@@ -1,9 +1,11 @@
-.DynamicCirlcle {
+.DynamicCircle {
   position: relative;
+  margin: auto;
+  display: flex;
 }
 
 .DynamicCircle .children {
   position: absolute;
-  top: 40%;
-  left: 30%;
+  top: 90px;
+  left: 80px;
 }
