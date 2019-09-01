@@ -24,11 +24,11 @@ class DynamicCircle extends Component {
     const quart = Math.PI / 2
     const counterClockwise = false
     ctx.lineWidth = 10
-    ctx.strokeStyle = '#ad2323'
-    ctx.shadowOffsetX = 0
-    ctx.shadowOffsetY = 0
-    ctx.shadowBlur = 10
-    ctx.shadowColor = '#656565'
+    ctx.strokeStyle = '#FF00FF'
+    // ctx.shadowOffsetX = 0
+    // ctx.shadowOffsetY = 0
+    // ctx.shadowBlur = 10
+    // ctx.shadowColor = '#656565'
     if (!anim) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.beginPath()
