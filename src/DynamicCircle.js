@@ -3,39 +3,72 @@ import React, { Component } from 'react'
 import './DynamicCircle.css'
 
 class DynamicCircle extends Component {
+  state = {
+    lastPercentage: 0
+  }
+
   componentDidMount() {
+    const percentage = this.calculateDayPercentage()
+    this.setState({ lastPercentage: percentage })
+    this.drawCircleToPercentage(percentage, true)
+  }
+
+  drawCircleToPercentage(percentage, anim = false) {
     const canvas = this.refs.canvas
     const ctx = canvas.getContext('2d')
     const x = canvas.width / 2
     const y = canvas.height / 2
     const radius = 150
-    const endPercent = this.calculateDayPercentage()
+    const endPercent = percentage
     const circ = Math.PI * 2
     const quart = Math.PI / 2
     const counterClockwise = false
-
-    let curPercent = 0
-
     ctx.lineWidth = 10
     ctx.strokeStyle = '#ad2323'
     ctx.shadowOffsetX = 0
     ctx.shadowOffsetY = 0
     ctx.shadowBlur = 10
     ctx.shadowColor = '#656565'
-
-    function animate(current) {
+    if (!anim) {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       ctx.beginPath()
-      ctx.arc(x, y, radius, -quart, circ * current - quart, counterClockwise)
+      ctx.arc(
+        x,
+        y,
+        radius,
+        -quart,
+        circ * (endPercent / 100) - quart,
+        counterClockwise
+      )
       ctx.stroke()
-      curPercent++
-      if (curPercent < endPercent) {
-        requestAnimationFrame(function() {
-          animate(curPercent / 100)
-        })
+    } else {
+      let curPercent = 0
+      function animate(current) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        ctx.beginPath()
+        ctx.arc(x, y, radius, -quart, circ * current - quart, counterClockwise)
+        ctx.stroke()
+        curPercent++
+        if (curPercent < endPercent) {
+          requestAnimationFrame(function() {
+            animate(curPercent / 100)
+          })
+        }
       }
+      animate()
     }
-    animate()
+  }
+
+  componentDidUpdate() {
+    // update canvas here
+    // redraw every 1%
+    const percentage = this.calculateDayPercentage()
+
+    if (percentage - this.state.lastPercentage > 0.1) {
+      this.drawCircleToPercentage(percentage)
+      this.setState({ lastPercentage: percentage })
+      console.log('redraw')
+    }
   }
 
   calculateDayPercentage() {
