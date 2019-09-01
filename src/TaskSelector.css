@@ -1,3 +1,42 @@
 .TaskSelector {
   position: relative;
+  display: flex;
+  justify-content: space-around;
+  color: black;
+}
+
+.TaskSelector .button {
+  padding: 7px 13px;
+  font-size: 1.2em;
+  background: greenyellow;
+}
+
+.TaskSelector .button:hover {
+  cursor: pointer;
+}
+
+.TaskSelector .button:first-of-type {
+  border-radius: 5px 0 0 5px;
+}
+
+.TaskSelector .button:last-of-type {
+  border-radius: 0 5px 5px 0;
+}
+
+.TaskSelector .button.sleep {
+  background: #add8b6;
+  color: #003366;
+  border: 1px solid #003366;
+}
+
+.TaskSelector .button.work {
+  background: #ffcccb;
+  color: #8b0000;
+  border: 1px solid #8b0000;
+}
+
+.TaskSelector .button.play {
+  background: #fed8b1;
+  color: #8f4700;
+  border: 1px solid #8f4700;
 }

@@ -6,9 +6,9 @@ class TaskSelector extends Component {
   render() {
     return (
       <div className="TaskSelector">
-        <div className="button">Sleep</div>
-        <div className="button">Work</div>
-        <div className="button">Play</div>
+        <div className="button sleep">Sleep</div>
+        <div className="button work">Work</div>
+        <div className="button play">Play</div>
       </div>
     )
   }
