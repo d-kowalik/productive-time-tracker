@@ -6,9 +6,15 @@ class TaskSelector extends Component {
   render() {
     return (
       <div className="TaskSelector">
-        <div className="button sleep">Sleep</div>
-        <div className="button work">Work</div>
-        <div className="button play">Play</div>
+        <div className="button sleep" onClick={this.props.onClick}>
+          Sleep
+        </div>
+        <div className="button work" onClick={this.props.onClick}>
+          Work
+        </div>
+        <div className="button play" onClick={this.props.onClick}>
+          Play
+        </div>
       </div>
     )
   }
