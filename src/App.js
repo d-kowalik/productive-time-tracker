@@ -25,22 +25,13 @@ class App extends Component {
     this.setState({ time: new Date() })
   }
 
-  padTo2with0(text) {
-    text = text.toString()
-    if (text.length === 1) return '0' + text
-    return text
-  }
-
   render() {
     const today = this.state.time
-    const time = `${this.padTo2with0(today.getHours())}:${this.padTo2with0(
-      today.getMinutes()
-    )}:${this.padTo2with0(today.getSeconds())}`
 
     return (
       <div className="App">
         <DynamicCircle today={today}>
-          <Timer time={time} />
+          <Timer time={today} />
         </DynamicCircle>
       </div>
     )
