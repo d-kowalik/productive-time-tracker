@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 import Timer from './Timer'
 import DynamicCircle from './DynamicCircle'
+import TaskSelector from './TaskSelector'
 
 import './App.css'
 
@@ -33,6 +34,7 @@ class App extends Component {
         <DynamicCircle today={today}>
           <Timer time={today} />
         </DynamicCircle>
+        <TaskSelector />
       </div>
     )
   }
