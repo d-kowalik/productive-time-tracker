@@ -14,7 +14,7 @@ const SLEEP_COLOR = '#add8b6'
 const WORK_COLOR = '#ffcccb'
 const PLAY_COLOR = '#fed8b1'
 
-const StateAsColor = {
+const TaskStateAsColor = {
   SLEEP: SLEEP_COLOR,
   WORK: WORK_COLOR,
   PLAY: PLAY_COLOR
@@ -41,7 +41,7 @@ class App extends Component {
     this.setState({ time: new Date() })
   }
 
-  handleTaskButtonClick(e) {
+  handleTaskButtonClick = e => {
     // Gets second class in upper case, being either SLEEP, WORK or PLAY
     const taskState = e.target.className.toUpperCase().split(' ')[1]
     this.setState({ taskState })
@@ -49,10 +49,14 @@ class App extends Component {
 
   render() {
     const today = this.state.time
+    console.log(TaskStateAsColor[this.state.taskState])
 
     return (
       <div className="App">
-        <DynamicCircle today={today}>
+        <DynamicCircle
+          today={today}
+          color={TaskStateAsColor[this.state.taskState]}
+        >
           <Timer time={today} />
         </DynamicCircle>
         <TaskSelector onClick={this.handleTaskButtonClick} />

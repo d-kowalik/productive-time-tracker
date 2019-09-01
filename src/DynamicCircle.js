@@ -9,6 +9,7 @@ class DynamicCircle extends Component {
 
   componentDidMount() {
     const percentage = this.calculateDayPercentage()
+
     this.setState({ lastPercentage: percentage })
     this.drawCircleToPercentage(percentage, true)
   }
@@ -24,7 +25,7 @@ class DynamicCircle extends Component {
     const quart = Math.PI / 2
     const counterClockwise = false
     ctx.lineWidth = 10
-    ctx.strokeStyle = '#FF00FF'
+    ctx.strokeStyle = this.props.color
     // ctx.shadowOffsetX = 0
     // ctx.shadowOffsetY = 0
     // ctx.shadowBlur = 10
@@ -64,10 +65,9 @@ class DynamicCircle extends Component {
     // redraw every 1%
     const percentage = this.calculateDayPercentage()
 
-    if (percentage - this.state.lastPercentage > 0.1) {
+    if (percentage - this.state.lastPercentage > 0.01) {
       this.drawCircleToPercentage(percentage)
       this.setState({ lastPercentage: percentage })
-      console.log('redraw')
     }
   }
 
