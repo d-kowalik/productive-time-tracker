@@ -6,26 +6,12 @@ import TaskSelector from './TaskSelector'
 
 import './App.css'
 
-const SLEEP = 'SLEEP'
-const WORK = 'WORK'
-const PLAY = 'PLAY'
-
-const SLEEP_COLOR = '#add8b6'
-const WORK_COLOR = '#ffcccb'
-const PLAY_COLOR = '#fed8b1'
-
-const TaskStateAsColor = {
-  SLEEP: SLEEP_COLOR,
-  WORK: WORK_COLOR,
-  PLAY: PLAY_COLOR
-}
-
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
       time: new Date(),
-      taskState: SLEEP
+      taskState: 'SLEEP'
     }
   }
 
@@ -44,19 +30,22 @@ class App extends Component {
   handleTaskButtonClick = e => {
     // Gets second class in upper case, being either SLEEP, WORK or PLAY
     const taskState = e.target.className.toUpperCase().split(' ')[1]
+
+    for (const element of document.querySelectorAll('.TaskSelector .button')) {
+      element.classList.remove('active')
+    }
+
+    e.target.classList.add('active')
+
     this.setState({ taskState })
   }
 
   render() {
     const today = this.state.time
-    console.log(TaskStateAsColor[this.state.taskState])
 
     return (
       <div className="App">
-        <DynamicCircle
-          today={today}
-          color={TaskStateAsColor[this.state.taskState]}
-        >
+        <DynamicCircle today={today} taskState={this.state.taskState}>
           <Timer time={today} />
         </DynamicCircle>
         <TaskSelector onClick={this.handleTaskButtonClick} />

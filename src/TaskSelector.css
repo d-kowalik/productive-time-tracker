@@ -29,14 +29,29 @@
   border: 1px solid #003366;
 }
 
+.TaskSelector .button.sleep.active {
+  color: white;
+  background: #003366;
+}
+
 .TaskSelector .button.work {
   background: #ffcccb;
   color: #8b0000;
   border: 1px solid #8b0000;
 }
 
+.TaskSelector .button.work.active {
+  color: white;
+  background: #8b0000;
+}
+
 .TaskSelector .button.play {
   background: #fed8b1;
   color: #8f4700;
   border: 1px solid #8f4700;
+}
+
+.TaskSelector .button.play.active {
+  color: white;
+  background: #8f4700;
 }

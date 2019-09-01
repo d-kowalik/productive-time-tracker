@@ -2,6 +2,16 @@ import React, { Component } from 'react'
 
 import './DynamicCircle.css'
 
+const SLEEP_COLOR = '#add8b6'
+const WORK_COLOR = '#ffcccb'
+const PLAY_COLOR = '#fed8b1'
+
+const TaskStateAsColor = {
+  SLEEP: SLEEP_COLOR,
+  WORK: WORK_COLOR,
+  PLAY: PLAY_COLOR
+}
+
 class DynamicCircle extends Component {
   state = {
     lastPercentage: 0
@@ -25,7 +35,7 @@ class DynamicCircle extends Component {
     const quart = Math.PI / 2
     const counterClockwise = false
     ctx.lineWidth = 10
-    ctx.strokeStyle = this.props.color
+    ctx.strokeStyle = TaskStateAsColor[this.props.taskState]
     // ctx.shadowOffsetX = 0
     // ctx.shadowOffsetY = 0
     // ctx.shadowBlur = 10
@@ -60,12 +70,15 @@ class DynamicCircle extends Component {
     }
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(prevProps) {
     // update canvas here
     // redraw every 1%
     const percentage = this.calculateDayPercentage()
 
-    if (percentage - this.state.lastPercentage > 0.01) {
+    if (
+      percentage - this.state.lastPercentage > 0.005 ||
+      prevProps.taskState !== this.props.taskState
+    ) {
       this.drawCircleToPercentage(percentage)
       this.setState({ lastPercentage: percentage })
     }

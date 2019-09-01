@@ -6,7 +6,7 @@ class TaskSelector extends Component {
   render() {
     return (
       <div className="TaskSelector">
-        <div className="button sleep" onClick={this.props.onClick}>
+        <div className="button sleep active" onClick={this.props.onClick}>
           Sleep
         </div>
         <div className="button work" onClick={this.props.onClick}>
