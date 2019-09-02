@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 import Timer from './Timer'
 import DynamicCircle from './DynamicCircle'
 import TaskSelector from './TaskSelector'
+import { SLEEP_COLOR, WORK_COLOR, PLAY_COLOR } from './colorConstants'
 
 import './App.css'
 
@@ -11,7 +12,13 @@ class App extends Component {
     super(props)
     this.state = {
       time: new Date(),
-      taskState: 'SLEEP'
+      taskState: 'SLEEP',
+      taskStates: {
+        0: SLEEP_COLOR,
+        25: WORK_COLOR,
+        35: PLAY_COLOR,
+        55: WORK_COLOR
+      }
     }
   }
 
@@ -45,7 +52,11 @@ class App extends Component {
 
     return (
       <div className="App">
-        <DynamicCircle today={today} taskState={this.state.taskState}>
+        <DynamicCircle
+          today={today}
+          taskState={this.state.taskState}
+          taskStates={this.state.taskStates}
+        >
           <Timer time={today} />
         </DynamicCircle>
         <TaskSelector onClick={this.handleTaskButtonClick} />

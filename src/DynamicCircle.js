@@ -2,25 +2,11 @@ import React, { Component } from 'react'
 
 import './DynamicCircle.css'
 
-const SLEEP_COLOR = '#add8b6'
-const WORK_COLOR = '#ffcccb'
-const PLAY_COLOR = '#fed8b1'
-
-const TaskStateAsColor = {
-  SLEEP: SLEEP_COLOR,
-  WORK: WORK_COLOR,
-  PLAY: PLAY_COLOR
-}
+import { TaskStateAsColor } from './colorConstants'
 
 class DynamicCircle extends Component {
   state = {
-    lastPercentage: 0,
-    taskStates: {
-      0: SLEEP_COLOR,
-      25: WORK_COLOR,
-      35: PLAY_COLOR,
-      55: WORK_COLOR
-    }
+    lastPercentage: 0
   }
 
   componentDidMount() {
@@ -42,7 +28,7 @@ class DynamicCircle extends Component {
     const counterClockwise = false
     ctx.lineWidth = 10
     ctx.strokeStyle = firstLaunch
-      ? this.state.taskStates[0]
+      ? this.props.taskStates[0]
       : TaskStateAsColor[this.props.taskState]
 
     if (firstLaunch) {
@@ -58,8 +44,8 @@ class DynamicCircle extends Component {
           circ * current - quart,
           counterClockwise
         )
-        if (this.state.taskStates[curPercent] !== undefined) {
-          ctx.strokeStyle = this.state.taskStates[curPercent]
+        if (this.props.taskStates[curPercent] !== undefined) {
+          ctx.strokeStyle = this.props.taskStates[curPercent]
         }
         ctx.stroke()
         lastPercent = curPercent
