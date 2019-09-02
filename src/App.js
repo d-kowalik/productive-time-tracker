@@ -12,15 +12,14 @@ import './App.css'
 class App extends Component {
   constructor(props) {
     super(props)
+    const { cookies } = props
+    let taskStates = cookies.get(todayDMY())
+    taskStates = taskStates === undefined ? {} : taskStates
+
     this.state = {
       time: new Date(),
       taskState: 'SLEEP',
-      taskStates: {
-        0: SLEEP_COLOR,
-        25: WORK_COLOR,
-        35: PLAY_COLOR,
-        55: WORK_COLOR
-      }
+      taskStates
     }
   }
 
