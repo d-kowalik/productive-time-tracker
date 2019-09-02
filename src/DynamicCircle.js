@@ -14,17 +14,23 @@ const TaskStateAsColor = {
 
 class DynamicCircle extends Component {
   state = {
-    lastPercentage: 0
+    lastPercentage: 0,
+    taskStates: {
+      0: SLEEP_COLOR,
+      25: WORK_COLOR,
+      35: PLAY_COLOR,
+      55: WORK_COLOR
+    }
   }
 
   componentDidMount() {
     const percentage = this.calculateDayPercentage()
 
-    this.setState({ lastPercentage: percentage })
     this.drawCircleToPercentage(percentage, true)
+    this.setState({ lastPercentage: percentage })
   }
 
-  drawCircleToPercentage(percentage, anim = false) {
+  drawCircleToPercentage = (percentage, firstLaunch = false) => {
     const canvas = this.refs.canvas
     const ctx = canvas.getContext('2d')
     const x = canvas.width / 2
@@ -35,38 +41,47 @@ class DynamicCircle extends Component {
     const quart = Math.PI / 2
     const counterClockwise = false
     ctx.lineWidth = 10
-    ctx.strokeStyle = TaskStateAsColor[this.props.taskState]
-    // ctx.shadowOffsetX = 0
-    // ctx.shadowOffsetY = 0
-    // ctx.shadowBlur = 10
-    // ctx.shadowColor = '#656565'
-    if (!anim) {
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.strokeStyle = firstLaunch
+      ? this.state.taskStates[0]
+      : TaskStateAsColor[this.props.taskState]
+
+    if (firstLaunch) {
+      let curPercent = 0
+      let lastPercent = curPercent
+      const animate = (last, current) => {
+        ctx.beginPath()
+        ctx.arc(
+          x,
+          y,
+          radius,
+          circ * last - quart - 0.01,
+          circ * current - quart,
+          counterClockwise
+        )
+        if (this.state.taskStates[curPercent] !== undefined) {
+          ctx.strokeStyle = this.state.taskStates[curPercent]
+        }
+        ctx.stroke()
+        lastPercent = curPercent
+        curPercent++
+        if (curPercent < endPercent) {
+          requestAnimationFrame(function() {
+            animate(lastPercent / 100, curPercent / 100)
+          })
+        }
+      }
+      animate()
+    } else {
       ctx.beginPath()
       ctx.arc(
         x,
         y,
         radius,
-        -quart,
-        circ * (endPercent / 100) - quart,
+        circ * ((this.state.lastPercentage - 1) / 100) - quart,
+        circ * (percentage / 100) - quart,
         counterClockwise
       )
       ctx.stroke()
-    } else {
-      let curPercent = 0
-      function animate(current) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height)
-        ctx.beginPath()
-        ctx.arc(x, y, radius, -quart, circ * current - quart, counterClockwise)
-        ctx.stroke()
-        curPercent++
-        if (curPercent < endPercent) {
-          requestAnimationFrame(function() {
-            animate(curPercent / 100)
-          })
-        }
-      }
-      animate()
     }
   }
 
@@ -75,10 +90,7 @@ class DynamicCircle extends Component {
     // redraw every 1%
     const percentage = this.calculateDayPercentage()
 
-    if (
-      percentage - this.state.lastPercentage > 0.005 ||
-      prevProps.taskState !== this.props.taskState
-    ) {
+    if (percentage - this.state.lastPercentage > 0.01) {
       this.drawCircleToPercentage(percentage)
       this.setState({ lastPercentage: percentage })
     }
