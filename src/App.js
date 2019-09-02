@@ -56,6 +56,7 @@ class App extends Component {
       () => {
         const { cookies } = this.props
         cookies.set(todayDMY(), this.state.taskStates, { path: '/' })
+        cookies.set('taskState', taskState, { path: '/' })
       }
     )
   }
