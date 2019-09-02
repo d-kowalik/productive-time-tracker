@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { withCookies } from 'react-cookie'
 
 import Timer from './Timer'
 import DynamicCircle from './DynamicCircle'
 import TaskSelector from './TaskSelector'
 import { SLEEP_COLOR, WORK_COLOR, PLAY_COLOR } from './colorConstants'
+import { todayDMY } from './dateHerlper'
 
 import './App.css'
 
@@ -47,10 +49,16 @@ class App extends Component {
     const taskStates = this.state.taskStates
     const percentage = Math.round(this.calculateDayPercentage())
 
-    this.setState({
-      taskState,
-      taskStates: { ...taskStates, [percentage]: taskState }
-    })
+    this.setState(
+      {
+        taskState,
+        taskStates: { ...taskStates, [percentage]: taskState }
+      },
+      () => {
+        const { cookies } = this.props
+        cookies.set(todayDMY(), this.state.taskStates, { path: '/' })
+      }
+    )
   }
 
   calculateDayPercentage() {
@@ -83,4 +91,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default withCookies(App)
