@@ -16,9 +16,12 @@ class App extends Component {
     let taskStates = cookies.get(todayDMY())
     taskStates = taskStates === undefined ? {} : taskStates
 
+    let taskState = cookies.get('taskState')
+    taskState = taskState === undefined ? 'SLEEP' : taskState
+
     this.state = {
       time: new Date(),
-      taskState: 'SLEEP',
+      taskState,
       taskStates
     }
   }
