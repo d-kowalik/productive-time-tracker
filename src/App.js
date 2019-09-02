@@ -44,7 +44,13 @@ class App extends Component {
 
     e.target.classList.add('active')
 
-    this.setState({ taskState })
+    const taskStates = this.state.taskStates
+    const percentage = Math.round(this.calculateDayPercentage())
+
+    this.setState({
+      taskState,
+      taskStates: { ...taskStates, [percentage]: taskState }
+    })
   }
 
   calculateDayPercentage() {
@@ -60,6 +66,7 @@ class App extends Component {
 
   render() {
     const today = this.state.time
+    console.log(this.state.taskStates)
 
     return (
       <div className="App">
