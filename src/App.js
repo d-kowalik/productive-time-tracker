@@ -5,7 +5,7 @@ import Timer from './Timer'
 import DynamicCircle from './DynamicCircle'
 import TaskSelector from './TaskSelector'
 import { SLEEP_COLOR, WORK_COLOR, PLAY_COLOR } from './colorConstants'
-import { todayDMY } from './dateHerlper'
+import { todayDMY } from './dateHelper'
 
 import './App.css'
 
