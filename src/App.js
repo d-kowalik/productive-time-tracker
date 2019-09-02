@@ -88,7 +88,10 @@ class App extends Component {
         >
           <Timer time={today} />
         </DynamicCircle>
-        <TaskSelector onClick={this.handleTaskButtonClick} />
+        <TaskSelector
+          onClick={this.handleTaskButtonClick}
+          taskState={this.state.taskState}
+        />
       </div>
     )
   }
