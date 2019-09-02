@@ -10,7 +10,7 @@ class DynamicCircle extends Component {
   }
 
   componentDidMount() {
-    const percentage = this.calculateDayPercentage()
+    const percentage = this.props.dayPercentage
 
     this.drawCircleToPercentage(percentage, true)
     this.setState({ lastPercentage: percentage })
@@ -74,23 +74,12 @@ class DynamicCircle extends Component {
   componentDidUpdate(prevProps) {
     // update canvas here
     // redraw every 1%
-    const percentage = this.calculateDayPercentage()
+    const percentage = this.props.dayPercentage
 
     if (percentage - this.state.lastPercentage > 0.01) {
       this.drawCircleToPercentage(percentage)
       this.setState({ lastPercentage: percentage })
     }
-  }
-
-  calculateDayPercentage() {
-    const secondsInADay = 24 * 60 * 60
-    const now = this.props.today
-    const hours = now.getHours() * 60 * 60
-    const minutes = now.getMinutes() * 60
-    const seconds = now.getSeconds()
-    const totalSeconds = hours + minutes + seconds
-
-    return (100 * totalSeconds) / secondsInADay
   }
 
   render() {

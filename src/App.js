@@ -47,6 +47,17 @@ class App extends Component {
     this.setState({ taskState })
   }
 
+  calculateDayPercentage() {
+    const secondsInADay = 24 * 60 * 60
+    const now = this.state.time
+    const hours = now.getHours() * 60 * 60
+    const minutes = now.getMinutes() * 60
+    const seconds = now.getSeconds()
+    const totalSeconds = hours + minutes + seconds
+
+    return (100 * totalSeconds) / secondsInADay
+  }
+
   render() {
     const today = this.state.time
 
@@ -56,6 +67,7 @@ class App extends Component {
           today={today}
           taskState={this.state.taskState}
           taskStates={this.state.taskStates}
+          dayPercentage={this.calculateDayPercentage()}
         >
           <Timer time={today} />
         </DynamicCircle>
