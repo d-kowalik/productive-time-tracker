@@ -72,8 +72,6 @@ class DynamicCircle extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // update canvas here
-    // redraw every 1%
     const percentage = this.props.dayPercentage
 
     if (percentage - this.state.lastPercentage > 0.01) {
