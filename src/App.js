@@ -66,7 +66,6 @@ class App extends Component {
 
   render() {
     const today = this.state.time
-    console.log(this.state.taskStates)
 
     return (
       <div className="App">
