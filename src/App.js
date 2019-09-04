@@ -12,11 +12,14 @@ class App extends Component {
   constructor(props) {
     super(props)
     const { cookies } = props
-    let taskStates = cookies.get(todayDMY())
-    taskStates = taskStates === undefined ? {} : taskStates
 
     let taskState = cookies.get('taskState')
     taskState = taskState === undefined ? 'SLEEP' : taskState
+
+    let taskStates = cookies.get(todayDMY())
+    if (taskStates === undefined) {
+      taskStates = { 0: taskState }
+    }
 
     this.state = {
       time: new Date(),

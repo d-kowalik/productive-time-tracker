@@ -28,7 +28,7 @@ class DynamicCircle extends Component {
     const counterClockwise = false
     ctx.lineWidth = 10
     ctx.strokeStyle = firstLaunch
-      ? this.props.taskStates[0]
+      ? TaskStateAsColor[this.props.taskStates[0]]
       : TaskStateAsColor[this.props.taskState]
 
     if (firstLaunch) {
