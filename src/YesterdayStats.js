@@ -15,12 +15,28 @@ const combineIntoPercentages = states => {
   return res
 }
 
-const YesterdayStats = ({ taskStates }) => {
-  console.log(combineIntoPercentages(taskStates))
+const mapDataToText = data => {
+  let res = ''
+  const length = Object.keys(data).length
+  let i = 0
+  for (const [name, percentage] of Object.entries(data)) {
+    i++
+    res +=
+      percentage +
+      '% of the day ' +
+      name.toLowerCase() +
+      'ing' +
+      (i === length ? '' : i === length - 1 ? ', and ' : ', ')
+  }
+  return res
+}
 
+const YesterdayStats = ({ taskStates }) => {
+  const data = combineIntoPercentages(taskStates)
+  const text = mapDataToText(data)
   return (
     <div className="YesterdayStats">
-      <h3>Yesterday, you spent..</h3>
+      <h3>Yesterday, you spent {text}.</h3>
     </div>
   )
 }
