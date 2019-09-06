@@ -86,7 +86,9 @@ class App extends Component {
 
     return (
       <div className="App">
-        {this.state.yesterdayStates && <YesterdayStats />}
+        {this.state.yesterdayStates && (
+          <YesterdayStats taskStates={this.state.yesterdayStates} />
+        )}
         <DynamicCircle
           today={today}
           taskState={this.state.taskState}
