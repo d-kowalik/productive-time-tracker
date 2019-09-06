@@ -22,7 +22,14 @@ class App extends Component {
       taskStates = { 0: taskState }
     }
 
-    const yesterdayStates = cookies.get(yesterdayDMY())
+    // const yesterdayStates = cookies.get(yesterdayDMY())
+    const yesterdayStates = {
+      0: 'SLEEP',
+      35: 'PLAY',
+      55: 'WORK',
+      75: 'PLAY',
+      90: 'SLEEP'
+    }
 
     this.state = {
       time: new Date(),
