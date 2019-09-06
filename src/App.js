@@ -4,7 +4,8 @@ import { withCookies } from 'react-cookie'
 import Timer from './Timer'
 import DynamicCircle from './DynamicCircle'
 import TaskSelector from './TaskSelector'
-import { todayDMY } from './dateHelper'
+import YesterdayStats from './YesterdayStats'
+import { todayDMY, yesterdayDMY } from './dateHelper'
 
 import './App.css'
 
@@ -21,10 +22,13 @@ class App extends Component {
       taskStates = { 0: taskState }
     }
 
+    const yesterdayStates = cookies.get(yesterdayDMY())
+
     this.state = {
       time: new Date(),
       taskState,
-      taskStates
+      taskStates,
+      yesterdayStates
     }
   }
 
@@ -82,6 +86,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        {this.state.yesterdayStates && <YesterdayStats />}
         <DynamicCircle
           today={today}
           taskState={this.state.taskState}
